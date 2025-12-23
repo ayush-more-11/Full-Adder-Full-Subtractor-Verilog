@@ -1,1 +1,38 @@
+`timescale 1ns / 1ps
 
+//////////////////////////////////////////////////////////////////////////////////
+
+// Gate Level Modelling
+module full_adder(input a, b, c, output sum, carry);
+wire s1, c1, c2;
+
+    xor(s1, a, b);
+    xor(sum, s1, c);
+    and(c1, a, b);
+    and(c2, s1, c);
+    or(carry, c1, c2);
+
+endmodule
+
+//////////////////////////////////////////////////////////////////////////////////
+
+// Dataflow Modelling
+module full_adder(input a, b, c, output sum, carry);
+
+    assign sum = a ^ b ^ c;        
+    assign carry = (a & b) | (b & c) | (a & c); 
+
+endmodule
+
+//////////////////////////////////////////////////////////////////////////////////
+
+// Behavioral Modelling
+module full_adder(input a, b, c, output reg sum, carry);
+
+always@(*)begin
+   sum = a ^ b ^ c;        
+   carry = (a & b) | (b & c) | (a & c); 
+end
+endmodule
+
+//////////////////////////////////////////////////////////////////////////////////
